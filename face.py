@@ -4,10 +4,10 @@ class Face():
       self.v1 = v1
       self.v2 = v2
       self.v3 = v3
-      self.area = calculate_area()
+      #self.area = calculate_area()
 
    def __repr__(self):
-      return "\nvertices: (%d, %d, %d) area: (%d)"% (self.v1, self.v2, self.v3, self.area)
+      return "\nvertices: (%d, %d, %d)"% (self.v1, self.v2, self.v3)
 
-   def calculate_area():
+   #def calculate_area():
       
