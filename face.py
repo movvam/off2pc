@@ -11,7 +11,7 @@ class Face():
       self.area = self.calculate_area()
       self.portion = -1    # -1 means not calculated
     
-      self.determine_normal()
+      self.transform_face()
       #print(self.generate_single_point())
       #self.determine_z(v3[0],v3[1])
 
@@ -31,40 +31,29 @@ class Face():
       return (area)
    
    
-   def determine_normal(self):
+   def transform_face(self):
       # ---------------------------
-      # determines the normal of the plane
+      # transforms face to xy-plane
       # ---------------------------
     
       AB = numpy.subtract(self.v2,self.v1)
       AC = numpy.subtract(self.v3,self.v1)
-#       print(self.v1,self.v2,self.v3)
-#       print(AB)
-#       print(AC)
-#       print("\n")
-        
+    
         
       normal = numpy.cross(AB, AC)
-      normalized = preprocessing.normalize([normal], norm='l2')
-      print(normalized[0])
-      #return normalized
+      normalized = preprocessing.normalize([normal], norm='l2')   #
+      #return normal
 
    
-
-   
- 
+   def generate_single_point(self, v1, v2, v3):  
+      # ---------------------------
+      # generates points from a transformed face 
+      # ---------------------------
     
-# ---------------------------
-# DEPRECATED
-# ---------------------------
-
-"""  
-   def generate_single_point(self):  
-        
-      x_min = self.v1[0]
-      x_max = self.v1[0]
-      y_min = self.v1[1]
-      y_max = self.v1[1]
+      x_min = v1[0]
+      x_max = v1[0]
+      y_min = v1[1]
+      y_max = v1[1]
         
       # find x_min/max and y_min/max  
       for x,y,z in (self.v1, self.v2, self.v3):
@@ -79,10 +68,17 @@ class Face():
       
       scaled_x = x_min + (random() * (x_max - x_min))
       scaled_y = y_min + (random() * (y_max - y_min))
-      z = self.determine_z(scaled_x, scaled_y)
+      z = 0
         
       return (scaled_x, scaled_y, z)
+   
+ 
+    
+# ---------------------------
+# DEPRECATED
+# ---------------------------
 
+""" 
    def determine_z(self, x, y):
       # ---------------------------
       # given x and y, determines z on the plane
@@ -102,29 +98,6 @@ class Face():
       𝑧 =(1/t)*((r*self.v1[0])+(𝑠*self.v1[1])+(t*self.v1[2])-(r*x)-(s*y))
 
       return z
-
-   def is_on_axis(self):
-      if self.on_x() or self.on_y() or self.on_z():
-        print("good!\n")
-        return True
-        
-      print("Face not on an axis!", self.v1, self.v2, self.v3)
-      return False
-
-   def on_x(self): 
-      if (self.v1[0] == self.v2[0]) and (self.v2[0] == self.v3[0]):
-        return True
-      return False
-   
-   def on_y(self): 
-      if (self.v1[1] == self.v2[1]) and (self.v2[1] == self.v3[1]):
-        return True
-      return False
-
-   def on_z(self): 
-      if (self.v1[2] == self.v2[2]) and (self.v2[2] == self.v3[2]):
-        return True
-      return False
 """    
     
          
